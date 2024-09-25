@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Book {
-  id     String @id @default(uuid())
+  id     String @id @default(uuid()) @db.Uuid
   title  String
   author String
   isbn   String
@@ -27,7 +27,7 @@ model Book {
 }
 
 model Author {
-  id        String @id @default(uuid())
+  id        String @id @default(uuid()) @db.Uuid
   name      String
   biography String
 
@@ -35,14 +35,14 @@ model Author {
 }
 
 model Genre {
-  id   String @id @default(uuid())
+  id   String @id @default(uuid()) @db.Uuid
   name String
 
   book Book[] // Books can have many genres
 }
 
 model Member {
-  id      String @id @default(uuid())
+  id      String @id @default(uuid()) @db.Uuid
   name    String
   email   String
   address String

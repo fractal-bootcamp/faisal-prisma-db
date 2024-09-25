@@ -1,11 +1,12 @@
 {
   "dependencies": {
+    "@prisma/client": "^5.20.0",
     "bun": "^1.1.29",
-    "prisma": "^5.12.1",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
-    "@types/node": "^22.7.0"
+    "@types/node": "^22.7.0",
+    "prisma": "^5.20.0"
   },
   "name": "prisma-db",
   "version": "1.0.0",
