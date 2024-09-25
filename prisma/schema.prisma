@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,38 +8,46 @@ datasource db {
 }
 
 model Book {
-  id     String @id @default(uuid()) @db.Uuid
-  title  String
-  author String
-  isbn   String
+  title String
+  isbn  String
+  id    String @id @default(cuid())
 
-  Genre Genre[]
+  authorId String
 
-  Member Member[]
-
-  Author Author[]
+  author Author   @relation(fields: [authorId], references: [id])
+  Genre  Genre[] // Many-to-many with genres
+  Borrow Borrow[]
 }
 
 model Author {
-  id        String @id @default(uuid()) @db.Uuid
+  id String @id @default(cuid())
+
   name      String
   biography String
 
-  book Book[] // Authors can author many books
+  Book Book[]
 }
 
 model Genre {
-  id   String @id @default(uuid()) @db.Uuid
   name String
-
-  book Book[] // Books can have many genres
+  id   String @id @default(cuid())
+  Book Book[]
 }
 
 model Member {
-  id      String @id @default(uuid()) @db.Uuid
   name    String
   email   String
   address String
+  id      String   @id @default(cuid())
+  Borrow  Borrow[]
+}
 
-  book Book[] // Members can rent many books at a time
+model Borrow {
+  id String @id @default(cuid())
+
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id])
+
+  bookId String
+  book   Book   @relation(fields: [bookId], references: [id])
 }
