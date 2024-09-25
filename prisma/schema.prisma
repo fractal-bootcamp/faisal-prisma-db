@@ -14,26 +14,38 @@ datasource db {
 }
 
 model Book {
-  id     Int    @id @default(autoincrement())
+  id     String @id @default(uuid())
   title  String
-  Author String
-  ISBN   String
+  author String
+  isbn   String
+
+  Genre Genre[]
+
+  Member Member[]
+
+  Author Author[]
 }
 
 model Author {
-  id        Int    @id @default(autoincrement())
+  id        String @id @default(uuid())
   name      String
   biography String
+
+  book Book[] // Authors can author many books
 }
 
 model Genre {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
+
+  book Book[] // Books can have many genres
 }
 
 model Member {
-  id      Int    @id @default(autoincrement())
+  id      String @id @default(uuid())
   name    String
   email   String
   address String
+
+  book Book[] // Members can rent many books at a time
 }
